@@ -13,7 +13,7 @@ if [ "$#" -ne 5 ]; then
   exit 1
 fi
 
-# Save variables for mach/s ine statistics MB and hostname
+# Save variables for machine statistics MB, lscpu and hostname
 vmstat_mb=$(vmstat --unit M)
 lscpu_out=$(lscpu)
 hostname=$(hostname -f)
