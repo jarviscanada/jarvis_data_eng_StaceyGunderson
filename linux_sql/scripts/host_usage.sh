@@ -1,6 +1,6 @@
 #!/bin/bash
-# Get arguments from CLI and create variables for later use
 
+# Get arguments from CLI and create variables for later use
 psql_host=$1
 psql_port=$2
 db_name=$3
