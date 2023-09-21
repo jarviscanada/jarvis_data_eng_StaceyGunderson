@@ -9,7 +9,7 @@ psql_password=$5
 
 # Warn and exit if incorrect number of CLI arguments are given
 if [ "$#" -ne 5 ]; then
-  echo "Incorrect number of arguments, requires host, port, name, username and password.l"
+  echo "Incorrect number of arguments, requires host, port, name, username and password."
   exit 1
 fi
 
@@ -30,7 +30,7 @@ disk_available=$(df -BM | awk '{print $4}' | tail -n1 | head -c-2 | xargs)
 timestamp=$(vmstat -t | awk '{print $18 " " $19}' | tail -n1)
 
 # Query db to find matching id in host_info table
-host_id="(SELECT id FROM host_info WHERE hostname='$hostname')";
+host_id="(SELECT id FROM host_info WHERE hostname='$hostname')"
 
 # PSQL insert information about server usage into the host_usage table
 insert_stmt="INSERT INTO host_usage(timestamp, host_id, memory_free, cpu_idle, cpu_kernel, disk_io, disk_available)
