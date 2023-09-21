@@ -18,6 +18,10 @@
  #Creates environment variable for psql for password
  export PGPASSWORD=$psql_password
 
+# Use jq to grab api information
+
+
+# Assign variables from pulled information
  id=1
  $open=1
  $high=1
@@ -25,7 +29,7 @@
  $price=4
  $volume=3
 
-
+# Insert values to psql database
  insert_stmt="INSERT INTO jrvs_test(id, symbol, open, high, low, price, volume) VALUES ($id,$symbols,$open,$high,$low,$price,$volume)"
 
  # Adds
