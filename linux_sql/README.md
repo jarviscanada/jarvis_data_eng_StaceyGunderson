@@ -30,7 +30,7 @@ Quick start command lines:
 
 # Implemenation
 ## Architecture
-![my image](./assets/Untitled Diagram.jpg)
+![Diagram of Architecture](./assets/Architecture.jpg)
 
 ## Scripts
 Shell script description and usage (use markdown code block for script usage)
