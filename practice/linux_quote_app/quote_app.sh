@@ -30,7 +30,8 @@
  $volume=3
 
 # Insert values to psql database
- insert_stmt="INSERT INTO jrvs_test(id, symbol, open, high, low, price, volume) VALUES ($id,$symbols,$open,$high,$low,$price,$volume)"
+ insert_stmt="INSERT INTO jrvs_test(id, symbol, open, high, low, price, volume)
+ VALUES ($id,$symbols,$open,$high,$low,$price,$volume)"
 
  # Adds
  psql -h $psql_host -p $psql_port -d $db_name -U $psql_user -c "$insert_stmt"
