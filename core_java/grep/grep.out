@@ -1,0 +1,2 @@
+     * @throws java.lang.IllegalArgumentException if a given InputFile is not a file
+            throw new IllegalArgumentException("USAGE: JavaGrep regex rootPath outFile.");
