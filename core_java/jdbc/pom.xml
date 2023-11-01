@@ -1,5 +1,101 @@
-<dependency>
-    <groupId>org.postgresql</groupId>
-    <artifactId>postgresql</artifactId>
-    <version>42.2.5</version>
-</dependency>
+
+<project>
+<modelVersion>4.0.0</modelVersion>
+<groupId>ca.jrvs.apps</groupId>
+<artifactId>jdbc</artifactId>
+<version>1.0-SNAPSHOT</version>
+
+<dependencies>
+    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j -->
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-reload4j</artifactId>
+        <version>2.0.9</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>ch.qos.reload4j</groupId>
+        <artifactId>reload4j</artifactId>
+        <version>1.2.22</version>
+        <scope>compile</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>2.0.9</version>
+        <scope>compile</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>2.6.5</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>2.6.5</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.6.5</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+    <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp</artifactId>
+        <version>5.0.0-alpha.11</version>
+    </dependency>
+    <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp-jvm</artifactId>
+        <version>5.0.0-alpha.11</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>2.15.0</version>
+    </dependency>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <scope>test</scope>
+    </dependency>
+
+</dependencies>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+    </properties>
+
+<build>
+    <plugins>
+        <plugin>
+            <artifactId>maven-shade-plugin</artifactId>
+            <executions>
+                <!-- Run shade goal on package phase -->
+                <execution>
+                    <configuration>
+                        <transformers>
+                            <!-- add Main-Class to manifest file -->
+                            <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <mainClass>ca.jrvs.apps.jdbc.jdbc</mainClass>
+                            </transformer>
+                        </transformers>
+                    </configuration>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                    <phase>package</phase>
+                </execution>
+            </executions>
+            <groupId>org.apache.maven.plugins</groupId>
+            <version>2.3</version>
+        </plugin>
+    </plugins>
+</build>
+</project>
