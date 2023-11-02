@@ -29,7 +29,6 @@ public class QuoteHttpHelper {
     public Quote fetchQuoteInfo(String symbol) throws IllegalArgumentException {
         parser = new JsonParser();
         symbol = symbol.toUpperCase();
-        System.out.println(symbol);
         if (!symbol.matches("^[A-Z]{1,4}$"))
             return null;
 
@@ -37,7 +36,7 @@ public class QuoteHttpHelper {
         ObjectMapper objectMapper = new ObjectMapper();
         String url = "https://alpha-vantage.p.rapidapi.com/query?function=GLOBAL_QUOTE&symbol="+symbol+"&datatype=json";
 
-        /*
+
         Request request = new Request.Builder()
                 .url(url)
                 .header("X-RapidAPI-Key", apiKey)
@@ -45,16 +44,18 @@ public class QuoteHttpHelper {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            Quote quote = objectMapper.readValue(response.body().string(), Quote.class);
+            //objectMapper.readTree(response.body().string()).get("Global Quote");
+            Quote quote = objectMapper.readValue(objectMapper.readTree(response.body().string()).get("Global Quote").toString(), Quote.class);
 
 
             System.out.println(quote);
+            return quote;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        */
 
 
+        /*
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://alpha-vantage.p.rapidapi.com/query?function=GLOBAL_QUOTE&symbol="+symbol+"&datatype=json"))
                 .header("X-RapidAPI-Key", apiKey)
@@ -65,13 +66,14 @@ public class QuoteHttpHelper {
             HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
             Quote quote = parser.toObjectFromJson(response.body(), Quote.class);
-            System.out.println(quote);
+            System.out.println(parser.toJson(quote, true, true));
             return quote;
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        */
 
         return null;
     }
