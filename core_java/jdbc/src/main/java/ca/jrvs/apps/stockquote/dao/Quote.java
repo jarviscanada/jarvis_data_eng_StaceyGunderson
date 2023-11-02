@@ -133,6 +133,43 @@ public class Quote {
         this.timestamp = timestamp;
     }
 
+    public Quote(){
+
+    }
+
+
+    public Quote(int id, String symbol, double open, double high, double low, double price, int volume, Date latestTradingDay, double previousClose, double change, String changePercent, Timestamp timestamp) {
+        this.id = id;
+        this.symbol = symbol;
+        this.open = open;
+        this.high = high;
+        this.low = low;
+        this.price = price;
+        this.volume = volume;
+        this.latestTradingDay = latestTradingDay;
+        this.previousClose = previousClose;
+        this.change = change;
+        this.changePercent = changePercent;
+        this.timestamp = timestamp;
+    }
+
+    @Override
+    public String toString() {
+        return "Quote{" +
+                "id=" + id +
+                ", symbol='" + symbol + '\'' +
+                ", open=" + open +
+                ", high=" + high +
+                ", low=" + low +
+                ", price=" + price +
+                ", volume=" + volume +
+                ", latestTradingDay=" + latestTradingDay +
+                ", previousClose=" + previousClose +
+                ", change=" + change +
+                ", changePercent='" + changePercent + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 
     public static class PositionService {
 

@@ -1,7 +1,10 @@
 package ca.jrvs.apps.stockquote.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Optional;
 
 public class Main {
@@ -21,6 +24,7 @@ public class Main {
         try (Connection conn = DriverManager.getConnection(url, user, password)) {
 
             PositionDao position = new PositionDao(conn);
+            QuoteDao quotedao = new QuoteDao(conn);
 
             /*
             Optional<Position> opt = position.findById(0);
@@ -32,8 +36,24 @@ public class Main {
             }
             */
 
-            Position pos = new Position(1,"MSFT", 24, 4.4);
-            Position opt = position.save(pos);
+            Position pos = new Position(3,"MSFT", 23, 4.2);
+            //Position opt = position.save(pos);
+            //position.deleteById(1);
+            //position.deleteAll();
+            //position.findAll();
+
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+            Quote quote = new Quote(2, "AMZN", 2.3,3,13,2,2, Date.valueOf("2023-10-13"),2,2,"2.3", timestamp);
+
+
+            //quotedao.deleteById(2);
+            //quotedao.findById(2);
+            Quote rs = quotedao.save(quote);
+            quotedao.findAll();
+            quotedao.deleteAll();
+            quotedao.findAll();
+            //quotedao.findById(2);
 
         } catch (Exception e ) {
             System.out.println(e.getMessage());
