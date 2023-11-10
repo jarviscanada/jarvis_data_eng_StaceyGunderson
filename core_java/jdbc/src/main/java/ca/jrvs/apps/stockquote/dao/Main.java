@@ -37,7 +37,7 @@ public class Main {
             */
 
             Position pos = new Position(3,"MSFT", 23, 4.2);
-            //Position opt = position.save(pos);
+            Position opt = position.save(pos);
             //position.deleteById(1);
             //position.deleteAll();
             //position.findAll();

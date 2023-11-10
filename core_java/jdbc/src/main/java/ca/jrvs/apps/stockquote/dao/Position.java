@@ -52,11 +52,9 @@ public class Position {
 
     @Override
     public String toString() {
-        return "Position{" +
-                "id=" + id +
+        return "id=" + id +
                 ", symbol='" + symbol + '\'' +
                 ", numOfShares=" + numOfShares +
-                ", valuePaid=" + valuePaid +
-                '}';
+                ", valuePaid=" + valuePaid;
     }
 }

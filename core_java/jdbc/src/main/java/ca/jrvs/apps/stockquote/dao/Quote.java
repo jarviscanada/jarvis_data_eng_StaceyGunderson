@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.sql.Timestamp;
 import java.sql.Date;
+import java.util.Optional;
 
 
 public class Quote {
@@ -155,7 +156,7 @@ public class Quote {
 
     @Override
     public String toString() {
-        return "Quote{" +
+        return
                 "id=" + id +
                 ", symbol='" + symbol + '\'' +
                 ", open=" + open +
@@ -167,21 +168,42 @@ public class Quote {
                 ", previousClose=" + previousClose +
                 ", change=" + change +
                 ", changePercent='" + changePercent + '\'' +
-                ", timestamp=" + timestamp +
-                '}';
+                ", timestamp=" + timestamp;
     }
 
     public static class PositionService {
 
         private PositionDao dao;
+        private QuoteHttpHelper quoteHttpHelper;
 
-        public Position buy(String symbol, int numberOfShares, double price) {
-            //TO DO
-            return null;
+        PositionService(QuoteHttpHelper quoteHttpHelper, PositionDao dao){
+            this.quoteHttpHelper = quoteHttpHelper;
+            this.dao = dao;
+        }
+
+        public Iterable<Position> listPositions (){
+            return dao.findAll();
+        }
+
+        public Position buy(Quote newQuote, int numberOfShares, double price) {
+            double oldPrice = 0;
+            Optional<Position> oldPos = dao.findBySymbol(newQuote.getSymbol());
+            if (oldPos.isPresent())
+            {
+                oldPrice = oldPos.get().getValuePaid();
+                double finalprice =  Math.floor((price*numberOfShares + oldPrice) * 100) / 100;
+                Position pos = new Position(oldPos.get().getId(),newQuote.getSymbol(), numberOfShares+oldPos.get().getNumOfShares(), finalprice);
+                dao.update(pos);
+                return pos;
+            }
+
+            Position pos = new Position(0,newQuote.getSymbol(), numberOfShares, price*numberOfShares);
+            dao.save(pos);
+            return pos;
         }
 
         public void sell(int id) {
-            //TO DO
+            dao.deleteById(id);
         }
 
     }

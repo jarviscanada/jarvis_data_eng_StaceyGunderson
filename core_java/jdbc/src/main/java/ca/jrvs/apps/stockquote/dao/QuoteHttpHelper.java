@@ -12,6 +12,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.sql.Timestamp;
 
 
 public class QuoteHttpHelper {
@@ -46,34 +47,13 @@ public class QuoteHttpHelper {
         try (Response response = client.newCall(request).execute()) {
             //objectMapper.readTree(response.body().string()).get("Global Quote");
             Quote quote = objectMapper.readValue(objectMapper.readTree(response.body().string()).get("Global Quote").toString(), Quote.class);
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            quote.setTimestamp(timestamp);
 
-
-            System.out.println(quote);
             return quote;
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-        /*
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://alpha-vantage.p.rapidapi.com/query?function=GLOBAL_QUOTE&symbol="+symbol+"&datatype=json"))
-                .header("X-RapidAPI-Key", apiKey)
-                .header("X-RapidAPI-Host", "alpha-vantage.p.rapidapi.com")
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-        try {
-            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-
-            Quote quote = parser.toObjectFromJson(response.body(), Quote.class);
-            System.out.println(parser.toJson(quote, true, true));
-            return quote;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        */
 
         return null;
     }
